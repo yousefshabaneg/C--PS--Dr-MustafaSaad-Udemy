@@ -21,6 +21,7 @@ using namespace std;
 
 int main()
 {
+  /* with nested
     int k, n;
     cin >> k >> n;
     int arr[n], sub_arrays = n - k + 1;
@@ -43,6 +44,28 @@ int main()
     end_idx = start_idx + k - 1;
 
     cout << start_idx << " " << end_idx << " " << sum;
+    */
 
-    return 0;
+  // without nested
+  int k, n;
+  cin >> k >> n;
+  int arr[n]{0};
+
+  for (int i = 0; i < n; i++)
+    cin >> arr[i];
+  int max = INT_MIN, start, end;
+  for (int i = 0; i < n - k + 1; i++)
+  {
+    int x = i, y = i + k - 1;
+    if (arr[x] + arr[y] > max)
+    {
+      max = arr[x] + arr[y];
+      start = x;
+      end = y;
+    }
+  }
+
+  cout << start << " " << end << " " << max;
+
+  return 0;
 }

@@ -11,28 +11,28 @@ using namespace std;
 */
 int main()
 {
-    int N;
-    cin >> N;
-    bool first_print = true;
-    for (int num = 2; num <= N; num++)
+  int N;
+  cin >> N;
+  bool first_print = true;
+  for (int num = 2; num <= N; num++)
+  {
+    bool isPrime = true;
+    for (int i = 2; i < num; i++)
     {
-        bool isPrime = true;
-        for (int i = 2; i < num; i++)
-        {
-            if (num % i == 0)
-            {
-                isPrime = false;
-                break;
-            }
-        }
-        if (isPrime)
-        {
-            if (!first_print)
-                cout << ",";
-            cout << num;
-            first_print = false;
-        }
+      if (num % i == 0)
+      {
+        isPrime = false;
+        break;
+      }
     }
+    if (isPrime)
+    {
+      if (!first_print)
+        cout << ",";
+      cout << num;
+      first_print = false;
+    }
+  }
 
-    return 0;
+  return 0;
 }
