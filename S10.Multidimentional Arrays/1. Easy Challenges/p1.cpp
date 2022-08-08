@@ -16,37 +16,35 @@ using namespace std;
         * 1 2 --> NO
         * 2 3 --> YES
 */
+
 int main()
 {
-    int rows, cols, q;
-    cin >> rows >> cols;
-    int arr[rows][cols];
-    for (int i = 0; i < rows; i++)
-    {
-        for (int j = 0; j < cols; j++)
-            cin >> arr[i][j];
-    }
+  int n, m;
+  cin >> n >> m;
+  int arr[n][m]{0};
+  for (int row = 0; row < n; row++)
+    for (int col = 0; col < m; col++)
+      cin >> arr[row][col];
 
-    cin >> q;
-    while (q--)
+  int q = 0;
+  cin >> q;
+  while (q--)
+  {
+    bool isFirstSmaller = true;
+    int r1, r2;
+    cin >> r1 >> r2;
+    r1--, r2--;
+    for (int col = 0; col < m; col++)
     {
-        int first, second;
-        cin >> first >> second;
-        bool isFirstSmaller = true;
-        first--;
-        second--;
-        for (int i = 0; i < cols && isFirstSmaller; i++)
-        {
-            if (arr[first][i] > arr[second][i])
-            {
-                isFirstSmaller = false;
-            }
-        }
-        if (isFirstSmaller)
-            cout << "YES" << endl;
-        else
-            cout << "NO" << endl;
+      if (arr[r1][col] >= arr[r2][col])
+      {
+        isFirstSmaller = false;
+        break;
+      }
     }
-
-    return 0;
+    string result = isFirstSmaller ? "YES" : "NO";
+    cout << result << endl;
+  }
+  // 3 4 8 16 9 52 3 15 27 6 14 25 29 10 3 1 2 2 3 1 3
+  return 0;
 }
