@@ -27,42 +27,57 @@ using namespace std;
         * 0 1   2 3   --> 3 primes 2 5 2 in rectangle (0,1), (1,3)
 
 */
+
 int main()
 {
-    int n, m, q, count = 0;
-    cin >> n >> m;
-    int arr[n][m];
-    for (int i = 0; i < n; i++)
-        for (int j = 0; j < m; j++)
-            cin >> arr[i][j];
+  int n, m;
+  cin >> n >> m;
+  int arr[n][m]{0};
+  for (int i = 0; i < n; i++)
+    for (int j = 0; j < m; j++)
+      cin >> arr[i][j];
 
-    cin >> q;
-    while (q--)
+  int q = 0;
+  cin >> q;
+  while (q--)
+  {
+    int primes = 0;
+    int i, j, r, c;
+    cin >> i >> j >> r >> c;
+    for (int k = 0; k < r; k++)
     {
-        int i, j, r, c;
-        cin >> i >> j >> r >> c;
-        int rowCount = 0;
-        while (rowCount < r)
+      for (int z = 0; z < c; z++)
+      {
+        int current = arr[(i + k)][j + z];
+        if (current == 2)
         {
-            int colCount = 0;
-            while (colCount < c)
-            {
-                int current = arr[i][j + colCount];
-                bool flag = true;
-                for (int i = 2; i < current && flag; i++)
-                {
-                    if (current % i == 0)
-                        flag = false;
-                }
-                if (flag)
-                    cout << current << " ";
-
-                colCount++;
-            }
-            rowCount++;
-            i++;
+          primes++;
+          cout << current << " ";
+          continue;
         }
-        cout << endl;
+        else if (current % 2 == 0)
+          continue;
+        else
+        {
+          int isPrime = true;
+          for (int index = 3; index < current; index++)
+          {
+            if (current % index == 0)
+            {
+              isPrime = false;
+              break;
+            }
+          }
+          if (isPrime)
+          {
+            cout << current << " ";
+            primes++;
+          }
+        }
+      }
     }
-    return 0;
+    cout << "Primes: " << primes << endl;
+  }
+  // 3 4 8 2 9 5 3 2 27 6 7 8 29 22 2 1 0 2 2 0 1 2 3
+  return 0;
 }

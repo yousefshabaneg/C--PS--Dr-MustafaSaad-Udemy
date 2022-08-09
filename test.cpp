@@ -2,50 +2,49 @@
 using namespace std;
 
 /*
-    ? Smaller row ?
-    ! Read integers n,m , then ream n x m then read q for q queries.
+    ? Active Robot
+    ! Read 2 integers N,M represents a matrix. a robot starts at cell (0,0).
+    ! Read integer K, then K commands. each command is 2 values.
+      * Direction: from 1 to 4 : up, right, down, left.
+      * Steps: number of steps to take in the direction.
+      * if the robot hits the wall during the move, it circulates in the matrix.
 
-    TODO: Each Query is 2 integers: 1st and 2nd row indices.
-    Todo: compare the 2 rows and print (YES) if the 1st Row < 2nd Row.
+    Todo: for every command, print where the robot now.
+    Todo: Inputs
 
-    Todo: Inputs ===========> OutPuts
-        * 3 4
-        * 8 16 9 52
-        * 3 15 27 6
-        * 14 25 29 10
-        * 2
-        * 1 2 --> NO
-        * 2 3 --> YES
+    * 3 4  4   (2 1) (3 2) (4 2) (1 3)
+
+    * (2 1) means --> to right, 1 step
+
+    *outputs:  (0,1) (2,1) (2,3) (2,3)
 */
 int main()
 {
-  int n, m;
-  cin >> n >> m;
-  int arr[n][m]{0};
-  for (int row = 0; row < n; row++)
-    for (int col = 0; col < m; col++)
-      cin >> arr[row][col];
+  int n, m, k, r = 0, c = 0;
+  cin >> n >> m >> k;
 
-  int q = 0;
-  cin >> q;
-  while (q--)
+  // from 1 to 4 : up, right, down, left
+  int rd[4]{-1, 0, 1, 0};
+  int cd[4]{0, 1, 0, -1};
+
+  while (k--)
   {
-    bool isFirstSmaller = true;
-    int r1, r2;
-    cin >> r1 >> r2;
-    r1--, r2--;
-    for (int col = 0; col < m; col++)
-    {
-      if (arr[r1][col] >= arr[r2][col])
-      {
-        isFirstSmaller = false;
-        break;
-      }
-    }
-    string result = isFirstSmaller ? "YES" : "NO";
-    cout << result << endl;
+    int dir, steps;
+    cin >> dir >> steps;
+    --dir;
+
+    r = (r + rd[dir] * steps) % n;
+    c = (c + cd[dir] * steps) % m;
+
+    if (r < 0)
+      r += n;
+    if (c < 0)
+      c += m;
+
+    cout << r << " " << c << endl;
   }
-  // 3 4 8 16 9 52 3 15 27 6 14 25 29 10 3 1 2 2 3 1 3
+
+  // 3 4 4 2 1 3 2 4 2 1 3
   return 0;
 }
 
